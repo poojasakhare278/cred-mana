@@ -11,6 +11,12 @@ const AddCredential: React.FC = () => {
   const [confirmPasscode, setConfirmPasscode] = useState('');
   const dispatch = useDispatch();
 
+  // Function to check if all inputs are filled
+  const areInputsFilled = () => {
+    return loginUrl.trim() !== '' && username.trim() !== '' && passcode.trim() !== '' && confirmPasscode.trim() !== '';
+  };
+
+  // Function to handle the add credential action
   const handleAdd = () => {
     if (passcode === confirmPasscode) {
       dispatch(
@@ -21,6 +27,7 @@ const AddCredential: React.FC = () => {
           passcode,
         })
       );
+      // Clear input fields after adding credential
       setLoginUrl('');
       setUsername('');
       setPasscode('');
@@ -39,6 +46,7 @@ const AddCredential: React.FC = () => {
           <input
             type="text"
             value={loginUrl}
+            required={true}
             onChange={(e) => setLoginUrl(e.target.value)}
           />
         </div>
@@ -47,6 +55,7 @@ const AddCredential: React.FC = () => {
           <input
             type="text"
             value={username}
+            required={true}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -55,6 +64,7 @@ const AddCredential: React.FC = () => {
           <input
             type="password"
             value={passcode}
+            required={true}
             onChange={(e) => setPasscode(e.target.value)}
           />
         </div>
@@ -63,10 +73,12 @@ const AddCredential: React.FC = () => {
           <input
             type="password"
             value={confirmPasscode}
+            required={true}
             onChange={(e) => setConfirmPasscode(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleAdd}>
+        {/* Disable button if any input is empty */}
+        <button type="button" onClick={handleAdd} disabled={!areInputsFilled()}>
           Add
         </button>
       </form>

@@ -20,6 +20,8 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
   const [passcode, setPasscode] = useState(initialPasscode);
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [copyUrlHighlighted, setCopyUrlHighlighted] = useState(false);
+  const [copyPasscodeHighlighted, setCopyPasscodeHighlighted] = useState(false);
 
   const handleDelete = () => {
     dispatch(deleteCredential(id));
@@ -42,8 +44,12 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
     setIsEditing(false);
   };
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text: string, setHighlighted: React.Dispatch<React.SetStateAction<boolean>>) => {
     navigator.clipboard.writeText(text);
+    setHighlighted(true);
+    setTimeout(() => {
+      setHighlighted(false);
+    }, 1000); // Reset highlight after 1 second
   };
 
   const openModal = () => {
@@ -79,13 +85,27 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
       ) : (
         <>
           <h3>{username}</h3>
-          <p>{loginUrl}</p>
-          <p>{passcode}</p>
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={() => copyToClipboard(loginUrl)}>Copy URL</button>
-          <button onClick={() => copyToClipboard(passcode)}>Copy Passcode</button>
-          <button onClick={openModal}>QR Code</button> 
+          <p className="truncate">
+            <span className="text">{loginUrl}</span>
+            <img
+              src='/assets/copy-regular.svg'
+              className={copyUrlHighlighted ? 'highlighted' : ''}
+              onClick={() => copyToClipboard(loginUrl, setCopyUrlHighlighted)}
+            />
+          </p>
+          <p className="truncate">
+            <span className="text">{passcode}</span>
+            <img
+              src='/assets/copy-regular.svg'
+              className={copyPasscodeHighlighted ? 'highlighted' : ''}
+              onClick={() => copyToClipboard(passcode, setCopyPasscodeHighlighted)}
+            />
+          </p>
+          <div className="button-group">
+            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleDelete}>Delete</button>
+            <button onClick={openModal}>G-QR</button>
+          </div>
           {showModal && (
             <Modal onClose={closeModal}>
               <QRCode value={loginUrl} />

@@ -11,15 +11,17 @@ const CredentialList: React.FC = () => {
   return (
     <div className="credential-list">
       <h2>Credentials ({credentials.length})</h2>
-      {credentials.map((credential: Credential) => ( 
-        <CredentialCard
-          key={credential.id}
-          id={credential.id}
-          loginUrl={credential.loginUrl}
-          username={credential.username}
-          passcode={credential.passcode}
-        />
-      ))}
+      <div className="card-grid">
+        {credentials.map((credential: Credential) => (
+          <CredentialCard
+            key={credential.id}
+            id={credential.id}
+            loginUrl={credential.loginUrl}
+            username={credential.username}
+            passcode={credential.passcode}
+          />
+        ))}
+      </div>
     </div>
   );
 };

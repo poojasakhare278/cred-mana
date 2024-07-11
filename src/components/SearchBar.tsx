@@ -21,6 +21,7 @@ const SearchBar: React.FC = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div className="credential-list">
+      <div className="card-grid">
         {filteredCredentials.map((credential) => (
           <CredentialCard
             key={credential.id}
@@ -30,6 +31,7 @@ const SearchBar: React.FC = () => {
             passcode={credential.passcode}
           />
         ))}
+         </div>
       </div>
     </div>
   );
