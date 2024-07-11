@@ -88,6 +88,7 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
             <span className="text">{loginUrl}</span>
             <img
               src='/assets/copy-regular.svg'
+              alt=''
               className={copyUrlHighlighted ? 'highlighted' : ''}
               onClick={() => copyToClipboard(loginUrl, setCopyUrlHighlighted)}
             />
@@ -95,6 +96,7 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
           <p className="truncate">
             <span className="text">{passcode}</span>
             <img
+            alt=''
               src='/assets/copy-regular.svg'
               className={copyPasscodeHighlighted ? 'highlighted' : ''}
               onClick={() => copyToClipboard(passcode, setCopyPasscodeHighlighted)}
