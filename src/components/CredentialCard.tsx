@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteCredential, updateCredential } from '../features/credentials/credentialsSlice';
 import QRCode from 'qrcode.react';
-import Modal from './Modal'; // Assuming Modal component is implemented
+import Modal from './Modal';
 import '../styles/CredentialCard.scss';
 
 interface CredentialCardProps {
@@ -37,7 +37,6 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
   };
 
   const handleCancel = () => {
-    // Reset fields to initial values or exit editing mode
     setLoginUrl(initialLoginUrl);
     setUsername(initialUsername);
     setPasscode(initialPasscode);
@@ -49,7 +48,7 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
     setHighlighted(true);
     setTimeout(() => {
       setHighlighted(false);
-    }, 1000); // Reset highlight after 1 second
+    }, 1000); 
   };
 
   const openModal = () => {
@@ -79,8 +78,8 @@ const CredentialCard: React.FC<CredentialCardProps> = ({ id, loginUrl: initialLo
             value={passcode}
             onChange={(e) => setPasscode(e.target.value)}
           />
-          <button onClick={handleSave}>Save</button>
-          <button onClick={handleCancel}>Cancel</button>
+          <button onClick={handleSave} className='cta'>Save</button>
+          <button onClick={handleCancel} className='cta'>Cancel</button>
         </>
       ) : (
         <>

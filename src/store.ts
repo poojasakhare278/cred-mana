@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import credentialsReducer from './features/credentials/credentialsSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     credentials: credentialsReducer,
   },
@@ -9,5 +9,3 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-export default store;

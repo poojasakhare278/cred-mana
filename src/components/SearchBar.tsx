@@ -11,7 +11,7 @@ const SearchBar: React.FC = () => {
   const filteredCredentials = credentials.filter((credential) =>
     credential.loginUrl.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  console.log("filteredCredentials", filteredCredentials)
   return (
     <div className="search-bar">
       <input
@@ -22,6 +22,7 @@ const SearchBar: React.FC = () => {
       />
       <div className="credential-list">
       <div className="card-grid">
+        
         {filteredCredentials.map((credential) => (
           <CredentialCard
             key={credential.id}
